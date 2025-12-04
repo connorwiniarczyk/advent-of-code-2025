@@ -24,14 +24,19 @@ int main() {
     char* flags[] = { "-I" LIBCW_ROOT "/include" };
     build.flags = cwlist_from_array(flags);
 
+    cwbuild_object(&build, &objects, "src/day03.c");
+    cwbuild_object(&build, &objects, "src/day02.c");
     cwbuild_object(&build, &objects, "src/day01.c");
     cwbuild_object(&build, &objects, "src/main.c");
 
 	const char* libs[] = { "-Lbuild/libcw", "-lcw", "-lm" };
     cwbuild_executable(&build, objects, cwlist_from_array(libs), "build/run");
 
-	CwCmd cmd = cwcmd_create(cw.a, "build/run");
-    host.process.spawn(cmd, (CwProcessOpts){0});
+    if (build.ctx.err == 0) {
+    	CwCmd cmd = cwcmd_create(cw.a, "build/run");
+        host.process.spawn(cmd, (CwProcessOpts){0});
+    }
+
 
     return 0;
 }

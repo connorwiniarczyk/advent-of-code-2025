@@ -1,6 +1,8 @@
 #include <cwcore.h>
 #include <cwhost.h>
 
+static char* example = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82";
+
 typedef struct Dial {
     int value;
     int output;
@@ -64,4 +66,5 @@ CwStr day01(CwStr input, int part) {
     }
 
     return cwfmt(&cw.a, "%d", dial.output);
+    (void)(example);
 }
